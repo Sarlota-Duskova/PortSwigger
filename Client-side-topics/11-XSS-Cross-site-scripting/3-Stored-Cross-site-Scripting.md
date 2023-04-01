@@ -1,0 +1,1 @@
+# Stored cross-site scripting

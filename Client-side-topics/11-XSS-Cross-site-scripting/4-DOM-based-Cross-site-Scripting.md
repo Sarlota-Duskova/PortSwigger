@@ -1,0 +1,1 @@
+# DOM-based cross-site scripting
